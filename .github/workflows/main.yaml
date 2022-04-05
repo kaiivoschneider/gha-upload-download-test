@@ -1,0 +1,32 @@
+name: Test upload and download on main push
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create_and_upload:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ./.github/actions/create_file
+      with:
+        file_path: "${{ github.workspace }}/file"
+        file_content: "123"
+    - uses: actions/upload-artifact@v2
+      id: upload_file
+      with:
+        name: "file-123"
+        path: "file"
+
+  download_and_list:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/download-artifact@v2
+      with:
+        name: "file-123"
+        path: "file"
+    - uses: ./.github/actions/show_file
+      with:
+        file_path: "${{ github.workspace }}/file"

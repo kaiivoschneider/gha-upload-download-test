@@ -1,0 +1,17 @@
+name: 'Create file'
+description: 'Creates a file with content to a given path'
+
+inputs:
+  file_path:
+    description: 'The path of the file to be created'
+    required: true
+  file_content:
+    description: 'The content of the file'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+  - name: Create file
+    shell: bash
+    run: echo ${{ inputs.file_content }} | tee ${{ inputs.file_path }}
