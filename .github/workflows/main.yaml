@@ -17,7 +17,7 @@ jobs:
       id: upload_file
       with:
         name: "file-123"
-        path: "file"
+        path: "${{ github.workspace }}/file"
 
   download_and_list:
     runs-on: ubuntu-latest
@@ -27,7 +27,7 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: "file-123"
-        path: "file-123"
+        path: "${{ github.workspace }}/file-123"
     - uses: ./.github/actions/show_file
       with:
         file_path: "${{ github.workspace }}/file-123/file"
